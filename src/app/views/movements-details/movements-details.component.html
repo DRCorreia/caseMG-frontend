@@ -1,0 +1,46 @@
+<div *ngIf="loadingMovements">
+    <div class="spinner-container">
+        <div class="spinner-lg"></div>
+    </div>
+</div>
+<div *ngIf="!loadingMovements">
+    <div class="container mt-4">
+        <fa-icon [icon]="faArrowLeft" routerLink="products" style="cursor: pointer;"></fa-icon>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img [src]="product.image ? 'data:image/jpeg;base64,' + product.image : 'assets/imgs/default-product.jpg'"
+                            class="product-image" alt="{{ product.name }}">
+                        <div class="ml-3">
+                            <h5>{{ product.name }}</h5>
+                            <p>{{ product.description }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>Estoque atual: {{ product.stock?.qty }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="list-group mt-3">
+            <li *ngFor="let movement of movements"
+                class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <span
+                        [ngClass]="{'text-success': movement.movement_type === 'E', 'text-danger': movement.movement_type === 'S'}">
+                        <fa-icon [icon]="movement.movement_type === 'E' ? faArrowUp : faArrowDown" style="margin-right:10px; font-size:14px;"></fa-icon>
+                        {{ movement.movement_type === 'E' ? 'Entrada' : 'Saída' }}: {{ movement.movement_qty }}
+                    </span>
+                </div>
+                <small>{{ movement.created_at | date:'dd/MM/yyyy HH:mm' }}</small>
+
+            </li>
+        </ul>
+        <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-primary radius-1" (click)="simulate('S')" [disabled]="qtySimulate === 0">Simular Saída ({{qtySimulate > 0 ? - qtySimulate : 'Estoque zerado'}})</button>
+            <button class="btn btn-primary radius-1" (click)="simulate('E')">Simular Entrada (+10)</button>
+        </div>
+    </div>
+</div>

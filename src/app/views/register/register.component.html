@@ -1,0 +1,71 @@
+<div class="row w-100 mx-0 auth-page">
+    <div class="col-md-8 col-xl-6 mx-auto">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-4 pe-md-0">
+            <div class="auth-side-wrapper" [ngStyle]="{ 'background-image': 'url(assets/imgs/banner-login.jpg)' }">
+            </div>
+          </div>
+          <div class="col-md-8 ps-md-0">
+            <div class="auth-form-wrapper px-4 py-5">
+              <a routerLink="." class="d-block mb-4">Register - Case Mind Group</a>
+              <form class="forms-sample" (ngSubmit)="onRegister()" [formGroup]="registerForm">
+                <div [ngClass]="{'margin-bottom': name.invalid && name.touched}">
+                  <label for="exampleInputName" class="form-label">Nome</label>
+                  <input type="text" class="form-control" formControlName="name" id="exampleInputName"
+                    placeholder="Ex: João Silva">
+                  <div class="spacer-name" *ngIf="name.valid || !name.touched"></div>
+                  <div *ngIf="name.invalid" class="validation-error">
+                    <p *ngIf="name.errors?.['required'] && name.touched">
+                      O nome é obrigatório
+                    </p>
+                    <p *ngIf="name.errors?.['maxlength'] && name.touched">
+                      O nome não pode ter mais que 255 caracteres.
+                    </p>
+                  </div>
+                </div>
+                <div [ngClass]="{'margin-bottom': email.invalid && email.touched}">
+                  <label for="exampleInputEmail1" class="form-label">E-mail</label>
+                  <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1"
+                    placeholder="Ex: joao@exemplo.com.br">
+                  <div class="spacer-email" *ngIf="email.valid || !email.touched"></div>
+                  <div *ngIf="email.invalid" class="validation-error">
+                    <p *ngIf="email.errors?.['required'] && email.touched">
+                      O email é obrigatório
+                    </p>
+                    <p *ngIf="email.errors?.['email'] && email.touched">Insira um email válido.</p>
+                    <p *ngIf="email.errors?.['unique'] && email.touched">Este email já está em uso.</p>
+                  </div>
+                </div>
+                <div [ngClass]="{'margin-bottom': password.invalid && password.touched}">
+                  <label for="exampleInputPassword1" class="form-label">Senha</label>
+                  <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1"
+                    autocomplete="new-password" placeholder="Digite sua senha...">
+                  <div class="spacer-password" *ngIf="password.valid || !password.touched"></div>
+                  <div *ngIf="password.invalid" class="validation-error">
+                    <p *ngIf="password.errors?.['required'] && password.touched">
+                      A senha é obrigatória
+                    </p>
+                    <p *ngIf="password.errors?.['minlength'] && password.touched">
+                      A senha deve ter no mínimo 8 caracteres.
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn_register me-2 mb-2 mb-md-0 border-0 rounded-1 d-flex justify-content-center align-items-center"
+                    style="width: 100px;">
+                    <div *ngIf="!solicitandoCadastro">
+                      <span>Cadastrar</span>
+                    </div>
+                    <div class="spinner" role="status" *ngIf="solicitandoCadastro">
+                    </div>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
